@@ -1,0 +1,46 @@
+import { Button, Stack, TextField } from "@mui/material";
+import { useState } from "react";
+
+const Auth = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setEmail(event.target.value);
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setPassword(event.target.value);
+
+  return (
+    <Stack
+      spacing={3}
+      sx={{
+        height: "100vh",
+        maxWidth: {
+          xs: "70%",
+          md: "30%",
+        },
+        margin: "0 auto",
+        justifyContent: "center",
+      }}
+    >
+      <TextField
+        type="email"
+        label="Email"
+        variant="outlined"
+        value={email}
+        onChange={handleEmailChange}
+      />
+      <TextField
+        type="password"
+        label="Password"
+        variant="outlined"
+        value={password}
+        onChange={handlePasswordChange}
+      />
+      <Button variant={"contained"}>Sign in</Button>
+    </Stack>
+  );
+};
+
+export default Auth;
