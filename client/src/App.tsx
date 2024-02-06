@@ -8,6 +8,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./components/Routes";
 import { ApolloProvider } from "@apollo/client";
 import client from "./config/apollo-client";
+import Guard from "./components/auth/Guard";
 
 const darkTheme = createMuiTheme({
   palette: {
@@ -21,7 +22,9 @@ const App = () => {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Container>
-          <RouterProvider router={router} />
+          <Guard>
+            <RouterProvider router={router} />
+          </Guard>
         </Container>
       </ThemeProvider>
     </ApolloProvider>
