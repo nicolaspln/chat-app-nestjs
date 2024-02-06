@@ -13,10 +13,17 @@ export class UsersService {
   }
 
   async create(createUserInput: CreateUserInput) {
-    return this.usersRepository.create({
-      ...createUserInput,
-      password: await this.hashPassword(createUserInput.password),
-    });
+    try {
+      return await this.usersRepository.create({
+        ...createUserInput,
+        password: await this.hashPassword(createUserInput.password),
+      });
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new UnauthorizedException('Email already exists');
+      }
+      throw error;
+    }
   }
 
   async findAll() {

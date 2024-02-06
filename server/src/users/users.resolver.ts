@@ -29,10 +29,6 @@ export class UsersResolver {
     return this.usersService.findOne(_id);
   }
 
-  // @Mutation(() => User)
-  // updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-  //   return this.usersService.update(updateUserInput._id, updateUserInput);
-  // }
   @Mutation(() => User)
   @UseGuards(GqlAuthGuard)
   updateUser(
@@ -42,11 +38,6 @@ export class UsersResolver {
     return this.usersService.update(user._id, updateUserInput);
   }
 
-  // @Mutation(() => User)
-  // @UseGuards(GqlAuthGuard)
-  // removeUser(@Args('_id') _id: string) {
-  //   return this.usersService.remove(_id);
-  // }
   @Mutation(() => User)
   @UseGuards(GqlAuthGuard)
   removeUser(@CurrentUser() user: TokenPayload) {

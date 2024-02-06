@@ -2,10 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import { User } from "../typings/models/User";
 
 interface CreateUserInput {
-  createUserInput: {
-    email: string;
-    password: string;
-  };
+  createUserInput: SignUpRequest;
 }
 
 const CREATE_USER = gql`
