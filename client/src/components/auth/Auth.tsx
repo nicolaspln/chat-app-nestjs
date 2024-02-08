@@ -1,5 +1,7 @@
 import { Button, Stack, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useGetMe } from "../../hooks/useGetMe";
+import { useNavigate } from "react-router-dom";
 
 interface Credentials {
   email: string;
@@ -23,6 +25,15 @@ const Auth = ({
 }: AuthProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { data: me } = useGetMe();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (me) {
+      navigate("/");
+    }
+  }, [me, navigate]);
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(event.target.value);

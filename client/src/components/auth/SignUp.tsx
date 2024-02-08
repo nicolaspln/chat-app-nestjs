@@ -4,10 +4,14 @@ import Auth from "./Auth";
 import { useCreateUser } from "../../hooks/useCreateUser";
 import { useState } from "react";
 import { extractErrorMessage } from "../../utils/errors";
+import { useLogin } from "../../hooks/useLogin";
 
 const SignUp = () => {
-  const [createUser, { loading }] = useCreateUser();
+  const [createUser, { loading: createLoading }] = useCreateUser();
+  const { login, loading: loginLoading } = useLogin();
   const [error, setError] = useState<string>();
+
+  const loading = createLoading || loginLoading;
 
   const handleSubmit = async ({ email, password }: SignUpRequest) => {
     try {
@@ -19,6 +23,7 @@ const SignUp = () => {
           },
         },
       });
+      await login({ email, password });
 
       setError("");
     } catch (error) {
