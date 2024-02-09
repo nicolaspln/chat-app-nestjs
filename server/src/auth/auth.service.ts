@@ -32,4 +32,11 @@ export class AuthService {
       httpOnly: true,
     });
   }
+
+  async logout(response: Response) {
+    response.cookie(AUTH_COOKIE_NAME, '', {
+      expires: new Date(),
+      httpOnly: true,
+    });
+  }
 }

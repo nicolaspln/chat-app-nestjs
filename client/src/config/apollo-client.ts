@@ -2,7 +2,7 @@ import { ApolloClient, HttpLink, InMemoryCache, concat } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import env from "./env";
 import excludedRoutes from "./excluded-routes";
-import router from "../components/Routes";
+import { onLogout } from "../utils/logout";
 
 const logoutLink = onError((error) => {
   if (
@@ -13,8 +13,7 @@ const logoutLink = onError((error) => {
     )
   ) {
     if (!excludedRoutes.includes(window.location.pathname)) {
-      router.navigate("/login");
-      client.resetStore();
+      onLogout();
     }
   }
 });

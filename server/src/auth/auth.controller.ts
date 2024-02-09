@@ -17,4 +17,9 @@ export class AuthController {
   ) {
     await this.authService.login(user, res);
   }
+
+  @Post('logout')
+  async logout(@Res({ passthrough: true }) res: Response) {
+    await this.authService.logout(res);
+  }
 }
