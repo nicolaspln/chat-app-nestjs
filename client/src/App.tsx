@@ -13,6 +13,7 @@ import Guard from "./components/auth/Guard";
 import Header from "./components/header/Header";
 import Toaster from "./components/toaster/Toaster";
 import ChatList from "./components/chat-list/ChatList";
+import { usePath } from "./hooks/usePath";
 
 const darkTheme = createMuiTheme({
   palette: {
@@ -21,26 +22,38 @@ const darkTheme = createMuiTheme({
 });
 
 const App = () => {
+  const { path } = usePath();
+
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Header />
-        <Grid container>
-          <Grid item md={3}>
-            <ChatList />
-          </Grid>
-          <Grid item md={9}>
-            <Container>
-              <Guard>
-                <RouterProvider router={router} />
-              </Guard>
-            </Container>
-          </Grid>
-        </Grid>
+        <Guard>
+          {path === "/" ? (
+            <Grid container>
+              <Grid item md={3}>
+                <ChatList />
+              </Grid>
+              <Grid item md={9}>
+                <Routes />
+              </Grid>
+            </Grid>
+          ) : (
+            <Routes />
+          )}
+        </Guard>
         <Toaster />
       </ThemeProvider>
     </ApolloProvider>
+  );
+};
+
+const Routes = () => {
+  return (
+    <Container>
+      <RouterProvider router={router} />
+    </Container>
   );
 };
 

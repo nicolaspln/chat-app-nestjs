@@ -4,6 +4,7 @@ import { useGetMe } from "../../hooks/useGetMe";
 import { authenticatedVar } from "../../config/authenticated";
 import { toastVar } from "../../config/toast";
 import { UNKNOWN_ERROR_TOAST } from "../../utils/errors";
+import { usePath } from "../../hooks/usePath";
 
 interface GuardProps {
   children: React.ReactNode;
@@ -11,6 +12,7 @@ interface GuardProps {
 
 const Guard = ({ children }: GuardProps) => {
   const { data: me, error } = useGetMe();
+  const { path } = usePath();
 
   useEffect(() => {
     if (me) {
@@ -24,13 +26,7 @@ const Guard = ({ children }: GuardProps) => {
     }
   }, [error]);
 
-  return (
-    <>
-      {excludedRoutes.includes(window.location.pathname)
-        ? children
-        : me && children}
-    </>
-  );
+  return <>{excludedRoutes.includes(path) ? children : me && children}</>;
 };
 
 export default Guard;
