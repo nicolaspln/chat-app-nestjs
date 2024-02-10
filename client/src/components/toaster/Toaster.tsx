@@ -14,7 +14,6 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 const Toaster = () => {
   const toast = useReactiveVar(toastVar);
-  console.log("UI :: TOAST :: toast", toast);
 
   const handleClose = (
     _event?: React.SyntheticEvent | Event,
