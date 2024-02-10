@@ -1,6 +1,7 @@
 import {
   Container,
   CssBaseline,
+  Grid,
   ThemeProvider,
   createMuiTheme,
 } from "@mui/material";
@@ -11,6 +12,7 @@ import client from "./config/apollo-client";
 import Guard from "./components/auth/Guard";
 import Header from "./components/header/Header";
 import Toaster from "./components/toaster/Toaster";
+import ChatList from "./components/chat-list/ChatList";
 
 const darkTheme = createMuiTheme({
   palette: {
@@ -24,11 +26,18 @@ const App = () => {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Header />
-        <Container>
-          <Guard>
-            <RouterProvider router={router} />
-          </Guard>
-        </Container>
+        <Grid container>
+          <Grid item md={3}>
+            <ChatList />
+          </Grid>
+          <Grid item md={9}>
+            <Container>
+              <Guard>
+                <RouterProvider router={router} />
+              </Guard>
+            </Container>
+          </Grid>
+        </Grid>
         <Toaster />
       </ThemeProvider>
     </ApolloProvider>
