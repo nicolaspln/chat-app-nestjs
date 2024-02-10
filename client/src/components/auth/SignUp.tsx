@@ -3,7 +3,7 @@ import { Link } from "@mui/material";
 import Auth from "./Auth";
 import { useCreateUser } from "../../hooks/useCreateUser";
 import { useState } from "react";
-import { extractErrorMessage } from "../../utils/errors";
+import { UNKNOWN_ERROR_MESSAGE, extractErrorMessage } from "../../utils/errors";
 import { useLogin } from "../../hooks/useLogin";
 
 const SignUp = () => {
@@ -33,7 +33,7 @@ const SignUp = () => {
         setError(errorMessage);
         return;
       }
-      setError("An error occurred.");
+      setError(UNKNOWN_ERROR_MESSAGE);
     }
   };
 

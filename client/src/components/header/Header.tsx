@@ -9,7 +9,7 @@ import Navigation from "./Navigation";
 import Settings from "./Settings";
 import { useReactiveVar } from "@apollo/client";
 import { authenticatedVar } from "../../config/authenticated";
-import { Page } from "../../typings/models/Page";
+import { Page } from "../../typings/ui/Page";
 
 const pages: Page[] = [{ title: "Home", path: "/" }];
 

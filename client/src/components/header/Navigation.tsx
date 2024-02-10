@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import { Page } from "../../typings/models/Page";
+import { Page } from "../../typings/ui/Page";
 import router from "../Routes";
 
 interface NavigationProps {

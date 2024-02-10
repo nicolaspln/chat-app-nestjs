@@ -8,6 +8,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import { useLogout } from "../../hooks/useLogout";
 import { onLogout } from "../../utils/logout";
+import { toastVar } from "../../config/toast";
+import { UNKNOWN_ERROR_TOAST } from "../../utils/errors";
 
 const Settings = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -19,6 +21,16 @@ const Settings = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      onLogout();
+      handleCloseUserMenu();
+    } catch (error) {
+      toastVar(UNKNOWN_ERROR_TOAST);
+    }
   };
 
   return (
@@ -44,14 +56,7 @@ const Settings = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem
-          key="logout"
-          onClick={async () => {
-            await logout();
-            onLogout();
-            handleCloseUserMenu();
-          }}
-        >
+        <MenuItem key="logout" onClick={handleLogout}>
           <Typography textAlign="center">Logout</Typography>
         </MenuItem>
       </Menu>

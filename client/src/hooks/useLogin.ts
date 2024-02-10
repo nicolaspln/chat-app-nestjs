@@ -2,6 +2,7 @@ import { useState } from "react";
 import env from "../config/env";
 import client from "../config/apollo-client";
 import { LoginRequest } from "../typings/auth/LoginRequest";
+import { UNKNOWN_ERROR_MESSAGE } from "../utils/errors";
 
 const useLogin = () => {
   const [error, setError] = useState<string>();
@@ -23,7 +24,7 @@ const useLogin = () => {
         if (res.status === 401) {
           setError("Invalid credentials.");
         } else {
-          setError("An error occurred.");
+          setError(UNKNOWN_ERROR_MESSAGE);
         }
         return;
       }
@@ -31,7 +32,7 @@ const useLogin = () => {
 
       setError("");
     } catch (e) {
-      setError("An error occurred.");
+      setError(UNKNOWN_ERROR_MESSAGE);
     } finally {
       setLoading(false);
     }
