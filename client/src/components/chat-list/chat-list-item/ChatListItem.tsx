@@ -10,7 +10,7 @@ const ChatListItem = () => {
     <>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          <Avatar alt="Remy Sharp" src="" />
         </ListItemAvatar>
         <ListItemText
           primary="Brunch this weekend?"

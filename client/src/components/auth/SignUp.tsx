@@ -5,6 +5,7 @@ import { useCreateUser } from "../../hooks/useCreateUser";
 import { useState } from "react";
 import { UNKNOWN_ERROR_MESSAGE, extractErrorMessage } from "../../utils/errors";
 import { useLogin } from "../../hooks/useLogin";
+import { CreateUserInput } from "../../gql/graphql";
 
 const SignUp = () => {
   const [createUser, { loading: createLoading }] = useCreateUser();
@@ -13,7 +14,7 @@ const SignUp = () => {
 
   const loading = createLoading || loginLoading;
 
-  const handleSubmit = async ({ email, password }: SignUpRequest) => {
+  const handleSubmit = async ({ email, password }: CreateUserInput) => {
     try {
       await createUser({
         variables: {
