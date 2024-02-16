@@ -3,7 +3,7 @@ import {
   CssBaseline,
   Grid,
   ThemeProvider,
-  createMuiTheme,
+  createTheme,
 } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
 import router from "./components/Routes";
@@ -15,7 +15,7 @@ import Toaster from "./components/toaster/Toaster";
 import ChatList from "./components/chat-list/ChatList";
 import { usePath } from "./hooks/usePath";
 
-const darkTheme = createMuiTheme({
+const darkTheme = createTheme({
   palette: {
     mode: "dark",
   },
