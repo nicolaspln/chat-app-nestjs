@@ -6,7 +6,7 @@ import {
   createTheme,
 } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
-import router from "./components/Routes";
+import router, { ROUTES } from "./components/Routes";
 import { ApolloProvider } from "@apollo/client";
 import client from "./config/apollo-client";
 import Guard from "./components/auth/Guard";
@@ -24,13 +24,15 @@ const darkTheme = createTheme({
 const App = () => {
   const { path } = usePath();
 
+  const displayChatList = path === ROUTES.HOME || path.includes(ROUTES.CHAT);
+
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Header />
         <Guard>
-          {path === "/" ? (
+          {displayChatList ? (
             <Grid container>
               <Grid item md={3}>
                 <ChatList />

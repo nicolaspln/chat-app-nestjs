@@ -29,7 +29,7 @@ const ChatList = () => {
           }}
         >
           {chats.map((chat) => (
-            <ChatListItem name={chat.name} />
+            <ChatListItem chat={chat} key={chat._id} />
           ))}
         </List>
       </Stack>

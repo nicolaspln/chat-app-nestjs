@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import ForumIcon from "@mui/icons-material/Forum";
-import router from "../../Routes";
+import router, { ROUTES } from "../../Routes";
 
 const MobileBranding = () => {
   return (
@@ -10,7 +10,7 @@ const MobileBranding = () => {
         variant="h5"
         noWrap
         component="a"
-        onClick={() => router.navigate("/")}
+        onClick={() => router.navigate(ROUTES.HOME)}
         sx={{
           mr: 2,
           display: { xs: "flex", md: "none" },
