@@ -2,6 +2,7 @@ import { Button, Stack, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useGetMe } from "../../hooks/useGetMe";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../Routes";
 
 interface Credentials {
   email: string;
@@ -31,7 +32,7 @@ const Auth = ({
 
   useEffect(() => {
     if (me) {
-      navigate("/");
+      navigate(ROUTES.HOME);
     }
   }, [me, navigate]);
 
@@ -40,6 +41,14 @@ const Auth = ({
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(event.target.value);
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      onSubmit({ email, password });
+    }
+  };
+
+  const handleSubmit = () => onSubmit({ email, password });
 
   return (
     <Stack
@@ -71,11 +80,12 @@ const Auth = ({
         variant="outlined"
         value={password}
         onChange={handlePasswordChange}
+        onKeyDown={handleKeyPress}
       />
       <Button
         disabled={loading || !email || !password}
         variant={"contained"}
-        onClick={() => onSubmit({ email, password })}
+        onClick={handleSubmit}
       >
         {submitLabel}
       </Button>
