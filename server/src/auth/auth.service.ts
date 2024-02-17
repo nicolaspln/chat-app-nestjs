@@ -30,6 +30,7 @@ export class AuthService {
     response.cookie(AUTH_COOKIE_NAME, token, {
       expires,
       httpOnly: true,
+      secure: true,
     });
   }
 
@@ -37,6 +38,7 @@ export class AuthService {
     response.cookie(AUTH_COOKIE_NAME, '', {
       expires: new Date(),
       httpOnly: true,
+      secure: true,
     });
   }
 }
