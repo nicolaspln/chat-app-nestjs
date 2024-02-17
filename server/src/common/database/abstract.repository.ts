@@ -1,4 +1,10 @@
-import { FilterQuery, Model, UpdateQuery } from 'mongoose';
+import {
+  FilterQuery,
+  Model,
+  ProjectionType,
+  QueryOptions,
+  UpdateQuery,
+} from 'mongoose';
 import { AbstractEntity } from './abstract.entity';
 import { Logger, NotFoundException } from '@nestjs/common';
 
@@ -12,8 +18,15 @@ export abstract class AbstractRepository<T extends AbstractEntity> {
     return createdDocument.save();
   }
 
-  async find(filterQuery: FilterQuery<T>): Promise<T[]> {
-    return this.model.find(filterQuery).lean().exec() as Promise<T[]>;
+  async find(
+    filterQuery: FilterQuery<T>,
+    projection?: ProjectionType<T | null | undefined>,
+    options?: QueryOptions<T>,
+  ): Promise<T[]> {
+    return this.model
+      .find(filterQuery, projection, options)
+      .lean()
+      .exec() as Promise<T[]>;
   }
 
   async findOne(filterQuery: FilterQuery<T>): Promise<T> {

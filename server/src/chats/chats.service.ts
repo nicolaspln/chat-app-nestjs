@@ -17,7 +17,7 @@ export class ChatsService {
   }
 
   async findAll() {
-    return this.chatsRepository.find({});
+    return this.chatsRepository.find({}, null, { sort: { updatedAt: -1 } });
   }
 
   async findOne(_id: string) {

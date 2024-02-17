@@ -20,7 +20,7 @@ const useCreateChat = () => {
               data: data?.createChat,
               fragment: ChatFragment,
             });
-            return [...existingChats, newChatRef];
+            return [newChatRef, ...existingChats];
           },
         },
       });
