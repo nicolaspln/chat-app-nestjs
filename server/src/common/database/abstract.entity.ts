@@ -10,10 +10,10 @@ export class AbstractEntity {
   _id: Types.ObjectId;
 
   @Prop({ type: Date, default: Date.now })
-  @Field(() => Date, { description: 'Created At' })
+  @Field(() => Date, { description: 'Created At', nullable: true })
   createdAt?: Date;
 
   @Prop({ type: Date, default: Date.now })
-  @Field(() => Date, { description: 'Updated At' })
+  @Field(() => Date, { description: 'Updated At', nullable: true })
   updatedAt?: Date;
 }
