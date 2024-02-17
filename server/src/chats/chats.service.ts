@@ -12,6 +12,7 @@ export class ChatsService {
       ...createChatInput,
       userId,
       userIds: createChatInput.userIds || [],
+      messages: [],
     });
   }
 
@@ -24,7 +25,7 @@ export class ChatsService {
   }
 
   update(_id: string, updateChatInput: UpdateChatInput) {
-    return `This action updates a #${_id} chat`;
+    return `This action updates a #${_id} chat: ${JSON.stringify(updateChatInput)}`;
   }
 
   remove(_id: string) {

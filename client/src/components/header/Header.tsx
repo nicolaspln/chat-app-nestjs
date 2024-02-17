@@ -10,8 +10,9 @@ import Settings from "./Settings";
 import { useReactiveVar } from "@apollo/client";
 import { authenticatedVar } from "../../config/authenticated";
 import { Page } from "../../typings/ui/Page";
+import { ROUTES } from "../Routes";
 
-const pages: Page[] = [{ title: "Home", path: "/" }];
+const pages: Page[] = [{ title: "Home", path: ROUTES.HOME }];
 
 const Header = () => {
   const authenticated = useReactiveVar(authenticatedVar);
