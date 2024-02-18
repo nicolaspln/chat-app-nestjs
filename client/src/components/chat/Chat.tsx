@@ -21,6 +21,13 @@ const Chat = () => {
   const [createMessage] = useCreateMessage(chatId);
   const { data: { messages = [] } = {} } = useGetMessages({ chatId });
 
+  const handleSubmit = () => {
+    createMessage({
+      variables: { createMessageInput: { content: message, chatId } },
+    });
+    setMessage("");
+  };
+
   return (
     <Stack
       sx={{
@@ -50,15 +57,7 @@ const Chat = () => {
           placeholder="Message"
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton
-          onClick={() => {
-            createMessage({
-              variables: { createMessageInput: { content: message, chatId } },
-            });
-          }}
-          color="primary"
-          sx={{ p: "10px" }}
-        >
+        <IconButton onClick={handleSubmit} color="primary" sx={{ p: "10px" }}>
           <SendIcon />
         </IconButton>
       </Paper>
