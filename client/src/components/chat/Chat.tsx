@@ -15,8 +15,10 @@ import { useGetMessages } from "../../hooks/useGetMessages";
 
 const Chat = () => {
   const params = useParams();
-  const [message, setMessage] = useState("");
   const chatId = params._id!;
+
+  const [message, setMessage] = useState("");
+
   const { data } = useGetChat({ _id: chatId });
   const [createMessage] = useCreateMessage(chatId);
   const { data: { messages = [] } = {} } = useGetMessages({ chatId });
@@ -28,10 +30,16 @@ const Chat = () => {
     setMessage("");
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
   return (
     <Stack
       sx={{
-        height: "90vh",
+        height: "80vh",
         justifyContent: "space-between",
       }}
     >
@@ -55,6 +63,7 @@ const Chat = () => {
           onChange={(event) => setMessage(event.target.value)}
           value={message}
           placeholder="Message"
+          onKeyDown={handleKeyPress}
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
         <IconButton onClick={handleSubmit} color="primary" sx={{ p: "10px" }}>
