@@ -32,18 +32,20 @@ const App = () => {
         <CssBaseline />
         <Header />
         <Guard>
-          {displayChatList ? (
-            <Grid container>
-              <Grid item md={3}>
-                <ChatList />
+          <Container maxWidth="xl" sx={{ marginTop: "1rem" }}>
+            {displayChatList ? (
+              <Grid container spacing={5}>
+                <Grid item xs={12} md={5} lg={4} xl={3}>
+                  <ChatList />
+                </Grid>
+                <Grid xs={12} item md={7} lg={8} xl={9}>
+                  <Routes />
+                </Grid>
               </Grid>
-              <Grid item md={9}>
-                <Routes />
-              </Grid>
-            </Grid>
-          ) : (
-            <Routes />
-          )}
+            ) : (
+              <Routes />
+            )}
+          </Container>
         </Guard>
         <Toaster />
       </ThemeProvider>
