@@ -1,16 +1,19 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useGetChat } from "../../hooks/useGetChat";
 import {
+  Avatar,
   Box,
   Divider,
+  Grid,
   IconButton,
   InputBase,
   Paper,
   Stack,
+  Typography,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useCreateMessage } from "../../hooks/useCreateMessage";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGetMessages } from "../../hooks/useGetMessages";
 
 const Chat = () => {
@@ -22,12 +25,22 @@ const Chat = () => {
   const { data } = useGetChat({ _id: chatId });
   const [createMessage] = useCreateMessage(chatId);
   const { data: { messages = [] } = {} } = useGetMessages({ chatId });
+  const divRef = useRef<HTMLDivElement | null>(null);
+  const location = useLocation();
+
+  const scrollToBottom = () => divRef.current?.scrollIntoView();
+
+  useEffect(() => {
+    setMessage("");
+    scrollToBottom();
+  }, [location.pathname, messages]);
 
   const handleSubmit = () => {
     createMessage({
       variables: { createMessageInput: { content: message, chatId } },
     });
     setMessage("");
+    scrollToBottom();
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -44,10 +57,27 @@ const Chat = () => {
       }}
     >
       <h1>{data?.chat.name}</h1>
-      <Box>
+      <Box sx={{ maxHeight: "80vh", overflow: "auto" }}>
         {messages.map((message) => (
-          <p key={message._id}>{message.content}</p>
+          <Grid container alignItems="center" marginBottom="1rem">
+            <Grid item xs={3} md={1}>
+              <Avatar src="" sx={{ width: 52, height: 52 }} />
+            </Grid>
+            <Grid item xs={9} md={11}>
+              <Stack>
+                <Paper sx={{ width: "fit-content" }}>
+                  <Typography sx={{ padding: "0.9rem" }}>
+                    {message.content}
+                  </Typography>
+                </Paper>
+                <Typography variant="caption" sx={{ marginLeft: "0.25rem" }}>
+                  {new Date(message.createdAt).toLocaleTimeString()}
+                </Typography>
+              </Stack>
+            </Grid>
+          </Grid>
         ))}
+        <div ref={divRef}></div>
       </Box>
       <Paper
         sx={{
