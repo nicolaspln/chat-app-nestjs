@@ -15,18 +15,21 @@ import SendIcon from "@mui/icons-material/Send";
 import { useCreateMessage } from "../../hooks/useCreateMessage";
 import { useEffect, useRef, useState } from "react";
 import { useGetMessages } from "../../hooks/useGetMessages";
+import { useMessageCreated } from "../../hooks/useMessageCreated";
 
 const Chat = () => {
   const params = useParams();
   const chatId = params._id!;
+  const location = useLocation();
 
   const [message, setMessage] = useState("");
 
+  const divRef = useRef<HTMLDivElement | null>(null);
+
   const { data } = useGetChat({ _id: chatId });
   const [createMessage] = useCreateMessage(chatId);
-  const { data: { messages = [] } = {} } = useGetMessages({ chatId });
-  const divRef = useRef<HTMLDivElement | null>(null);
-  const location = useLocation();
+  const { data: { messages } = {} } = useGetMessages({ chatId });
+  const { data: latestMessage } = useMessageCreated({ chatId });
 
   const scrollToBottom = () => divRef.current?.scrollIntoView();
 
@@ -58,7 +61,7 @@ const Chat = () => {
     >
       <h1>{data?.chat.name}</h1>
       <Box sx={{ maxHeight: "80vh", overflow: "auto" }}>
-        {messages.map((message) => (
+        {messages?.map((message) => (
           <Grid container alignItems="center" marginBottom="1rem">
             <Grid item xs={2} lg={1}>
               <Avatar src="" sx={{ width: 52, height: 52 }} />
@@ -97,7 +100,12 @@ const Chat = () => {
           onKeyDown={handleKeyPress}
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton onClick={handleSubmit} color="primary" sx={{ p: "10px" }}>
+        <IconButton
+          disabled={!message}
+          onClick={handleSubmit}
+          color="primary"
+          sx={{ p: "10px" }}
+        >
           <SendIcon />
         </IconButton>
       </Paper>
