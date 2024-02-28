@@ -27,9 +27,10 @@ const Chat = () => {
   const divRef = useRef<HTMLDivElement | null>(null);
 
   const { data } = useGetChat({ _id: chatId });
-  const [createMessage] = useCreateMessage(chatId);
+  const [createMessage] = useCreateMessage();
   const { data: { messages } = {} } = useGetMessages({ chatId });
-  const { data: latestMessage } = useMessageCreated({ chatId });
+
+  useMessageCreated({ chatId });
 
   const scrollToBottom = () => divRef.current?.scrollIntoView();
 
@@ -61,25 +62,35 @@ const Chat = () => {
     >
       <h1>{data?.chat.name}</h1>
       <Box sx={{ maxHeight: "80vh", overflow: "auto" }}>
-        {messages?.map((message) => (
-          <Grid container alignItems="center" marginBottom="1rem">
-            <Grid item xs={2} lg={1}>
-              <Avatar src="" sx={{ width: 52, height: 52 }} />
-            </Grid>
-            <Grid item xs={10} lg={11}>
-              <Stack>
-                <Paper sx={{ width: "fit-content" }}>
-                  <Typography sx={{ padding: "0.9rem" }}>
-                    {message.content}
-                  </Typography>
-                </Paper>
-                <Typography variant="caption" sx={{ marginLeft: "0.25rem" }}>
-                  {new Date(message.createdAt).toLocaleTimeString()}
-                </Typography>
-              </Stack>
-            </Grid>
-          </Grid>
-        ))}
+        {messages &&
+          [...messages]
+            ?.sort(
+              (messageA, messageB) =>
+                new Date(messageA.createdAt).getTime() -
+                new Date(messageB.createdAt).getTime()
+            )
+            .map((message) => (
+              <Grid container alignItems="center" marginBottom="1rem">
+                <Grid item xs={2} lg={1}>
+                  <Avatar src="" sx={{ width: 52, height: 52 }} />
+                </Grid>
+                <Grid item xs={10} lg={11}>
+                  <Stack>
+                    <Paper sx={{ width: "fit-content" }}>
+                      <Typography sx={{ padding: "0.9rem" }}>
+                        {message.content}
+                      </Typography>
+                    </Paper>
+                    <Typography
+                      variant="caption"
+                      sx={{ marginLeft: "0.25rem" }}
+                    >
+                      {new Date(message.createdAt).toLocaleTimeString()}
+                    </Typography>
+                  </Stack>
+                </Grid>
+              </Grid>
+            ))}
         <div ref={divRef}></div>
       </Box>
       <Paper

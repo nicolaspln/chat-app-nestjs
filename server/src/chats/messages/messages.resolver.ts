@@ -52,5 +52,3 @@ export class MessagesResolver {
     return this.messagesService.messageCreated(messageCreatedArgs, user._id);
   }
 }
-
-}
