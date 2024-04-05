@@ -7,44 +7,27 @@ import { ChatsRepository } from './chats.repository';
 export class ChatsService {
   constructor(private readonly chatsRepository: ChatsRepository) {}
 
-  userChatFilter(userId: string) {
-    return {
-      $or: [
-        { userId },
-        {
-          userIds: {
-            $in: [userId],
-          },
-        },
-        { isPrivate: false },
-      ],
-    };
-  }
-
   async create(createChatInput: CreateChatInput, userId: string) {
     return this.chatsRepository.create({
       ...createChatInput,
       userId,
-      userIds: createChatInput.userIds || [],
       messages: [],
     });
   }
 
-  async findAll(userId: string) {
-    return this.chatsRepository.find({
-      ...this.userChatFilter(userId),
-    });
+  async findAll() {
+    return this.chatsRepository.find({});
   }
 
   async findOne(_id: string) {
-    return await this.chatsRepository.findOne({ _id });
+    return this.chatsRepository.findOne({ _id });
   }
 
-  update(_id: string, updateChatInput: UpdateChatInput) {
-    return `This action updates a #${_id} chat: ${JSON.stringify(updateChatInput)}`;
+  update(id: number, updateChatInput: UpdateChatInput) {
+    return `This action updates a #${id} chat with ${JSON.stringify(updateChatInput)}`;
   }
 
-  remove(_id: string) {
-    return `This action removes a #${_id} chat`;
+  remove(id: number) {
+    return `This action removes a #${id} chat`;
   }
 }
