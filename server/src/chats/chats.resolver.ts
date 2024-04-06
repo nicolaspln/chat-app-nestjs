@@ -6,7 +6,7 @@ import { UpdateChatInput } from './dto/update-chat.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
-import { TokenPayload } from '../auth/token-payload.interface';
+import { TokenPayload } from '../auth/interfaces/token-payload.interface';
 
 @Resolver(() => Chat)
 export class ChatsResolver {
