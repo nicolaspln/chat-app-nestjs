@@ -32,14 +32,27 @@ const ChatListItem = ({ chat, selected }: ChatListProps) => {
             secondary={
               <>
                 <Typography
-                  sx={{ display: "inline" }}
+                  sx={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: "1",
+                    WebkitBoxOrient: "vertical",
+                  }}
                   component="span"
                   variant="body2"
-                  color="text.primary"
                 >
-                  Ali Connors
+                  <Typography
+                    sx={{ display: "inline" }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    {chat.latestMessage?.user.username ||
+                      "Let's start a discussion!"}
+                  </Typography>
+                  {" " + (chat.latestMessage?.content || "")}
                 </Typography>
-                {"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."}
               </>
             }
           />
