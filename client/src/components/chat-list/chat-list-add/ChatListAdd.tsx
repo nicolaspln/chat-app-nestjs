@@ -1,18 +1,18 @@
 import {
   Box,
   Button,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-  InputBase,
+  // FormControlLabel,
+  // FormGroup,
+  // IconButton,
+  // InputBase,
   Modal,
-  Paper,
+  // Paper,
   Stack,
-  Switch,
+  // Switch,
   TextField,
   Typography,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+// import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { useCreateChat } from "../../../hooks/useCreateChat";
 import { UNKNOWN_ERROR_MESSAGE } from "../../../utils/errors";
@@ -24,7 +24,7 @@ interface ChatListAddProps {
 }
 
 const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
-  const [isPrivate, setIsPrivate] = useState(false);
+  // const [isPrivate, setIsPrivate] = useState(false);
   const [error, setError] = useState("");
   const [name, setName] = useState("");
   const [createChat] = useCreateChat();
@@ -32,7 +32,7 @@ const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
   const onClose = () => {
     setError("");
     setName("");
-    setIsPrivate(false);
+    // setIsPrivate(false);
     handleClose();
   };
 
@@ -55,7 +55,7 @@ const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
           <Typography variant="h6" component="h2">
             Add Chat
           </Typography>
-          <FormGroup>
+          {/* <FormGroup>
             <FormControlLabel
               style={{ width: 0 }}
               control={
@@ -75,14 +75,14 @@ const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
                 <SearchIcon />
               </IconButton>
             </Paper>
-          ) : (
-            <TextField
-              label="Name"
-              error={!!error}
-              helperText={error}
-              onChange={(event) => setName(event.target.value)}
-            />
-          )}
+          ) : ( */}
+          <TextField
+            label="Name"
+            error={!!error}
+            helperText={error}
+            onChange={(event) => setName(event.target.value)}
+          />
+          {/* )} */}
           <Button
             variant="outlined"
             onClick={async () => {
@@ -93,7 +93,10 @@ const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
               try {
                 const chat = await createChat({
                   variables: {
-                    createChatInput: { isPrivate, name },
+                    createChatInput: {
+                      //isPrivate,
+                      name,
+                    },
                   },
                 });
                 onClose();
