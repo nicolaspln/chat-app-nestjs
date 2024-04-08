@@ -23,6 +23,8 @@ const ChatList = () => {
     }
   }, [path]);
 
+  console.log("UI :: components/chat-list/ChatList.tsx", chats);
+
   return (
     <>
       <ChatListAdd
@@ -42,12 +44,11 @@ const ChatList = () => {
         >
           {[...chats]
             .sort((chatA, chatB) => {
-              if (!chatA.latestMessage) {
-                return -1;
-              }
+              const chatADate = chatA.updatedAt || chatA.createdAt;
+              const chatBDate = chatB.updatedAt || chatB.createdAt;
+
               return (
-                new Date(chatB.latestMessage?.createdAt).getTime() -
-                new Date(chatA.latestMessage?.createdAt).getTime()
+                new Date(chatBDate).getTime() - new Date(chatADate).getTime()
               );
             })
             .map((chat) => (

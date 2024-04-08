@@ -7,5 +7,7 @@ export const ChatFragment = graphql(`
     latestMessage {
       ...MessageFragment
     }
+    createdAt
+    updatedAt
   }
 `);
