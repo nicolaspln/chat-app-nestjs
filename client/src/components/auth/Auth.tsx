@@ -12,6 +12,7 @@ interface Credentials {
 interface AuthProps {
   submitLabel: string;
   children?: React.ReactNode;
+  extraFields?: React.ReactNode[];
   onSubmit: (credentials: Credentials) => Promise<void>;
   error?: string;
   loading?: boolean;
@@ -21,6 +22,7 @@ const Auth = ({
   submitLabel,
   error,
   children,
+  extraFields,
   loading,
   onSubmit,
 }: AuthProps) => {
@@ -69,6 +71,7 @@ const Auth = ({
         value={email}
         onChange={handleEmailChange}
       />
+      {extraFields}
       <TextField
         error={!!error}
         helperText={error}
