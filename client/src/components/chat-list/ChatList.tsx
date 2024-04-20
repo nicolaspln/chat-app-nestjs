@@ -13,12 +13,14 @@ import { useCountChats } from "../../hooks/useCountChats";
 const ChatList = () => {
   const [chatListAddVisible, setChatListAddVisible] = useState(false);
   const [selectedChatId, setSelectedChatId] = useState("");
-  const { data: { chats = [] } = {}, fetchMore } = useGetChats({
+  const { data, fetchMore } = useGetChats({
     offset: 0,
     limit: PAGE_SIZE,
   });
   const { path } = usePath();
   const { chatsCount, countChats } = useCountChats();
+
+  const chats = data?.chats || [];
 
   useEffect(() => {
     countChats();
@@ -32,8 +34,6 @@ const ChatList = () => {
       setSelectedChatId(pathSplit[1]);
     }
   }, [path]);
-
-  console.log("UI :: components/chat-list/ChatList.tsx", chats);
 
   return (
     <>

@@ -24,7 +24,7 @@ export class ChatsService {
     const chats = await this.chatsRepository.model.aggregate([
       ...prePipelineStages,
       { $set: { latestMessage: { $arrayElemAt: ['$messages', -1] } } },
-      { $sort: { $updatedAt: -1 } },
+      { $sort: { updatedAt: -1 } },
       { $skip: paginationArgs.offset },
       { $limit: paginationArgs.limit },
       { $unset: 'messages' },

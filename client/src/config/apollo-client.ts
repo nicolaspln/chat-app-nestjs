@@ -59,10 +59,10 @@ const client = new ApolloClient({
             keyArgs: false,
             merge,
           },
-          messages: {
-            keyArgs: ["chatId"],
-            merge,
-          },
+          // messages: {
+          //   keyArgs: ["chatId"],
+          //   merge,
+          // },
         },
       },
     },
@@ -73,7 +73,7 @@ const client = new ApolloClient({
 function merge(existing: any, incoming: any, { args }: any) {
   const merged = existing ? existing.slice(0) : [];
   for (let i = 0; i < incoming.length; ++i) {
-    merged[args.skip + i] = incoming[i];
+    merged[args.offset + i] = incoming[i];
   }
   return merged;
 }
