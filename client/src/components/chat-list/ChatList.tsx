@@ -57,7 +57,8 @@ const ChatList = () => {
             loadMore={() =>
               fetchMore({
                 variables: {
-                  skip: chats.length,
+                  offset: chats.length,
+                  limit: PAGE_SIZE,
                 },
               })
             }
@@ -75,6 +76,7 @@ const ChatList = () => {
               })
               .map((chat) => (
                 <ChatListItem
+                  key={chat._id}
                   chat={chat}
                   selected={chat._id === selectedChatId}
                 />
