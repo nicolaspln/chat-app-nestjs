@@ -3,8 +3,8 @@ import { graphql } from "../gql";
 import { MessagesQueryVariables } from "../gql/graphql";
 
 const getMessagesDocument = graphql(`
-  query Messages($chatId: String!) {
-    messages(chatId: $chatId) {
+  query Messages($chatId: String!, $offset: Int!, $limit: Int!) {
+    messages(chatId: $chatId, offset: $offset, limit: $limit) {
       ...MessageFragment
     }
   }

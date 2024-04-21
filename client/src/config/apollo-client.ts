@@ -59,10 +59,10 @@ const client = new ApolloClient({
             keyArgs: false,
             merge,
           },
-          // messages: {
-          //   keyArgs: ["chatId"],
-          //   merge,
-          // },
+          messages: {
+            keyArgs: ["chatId"],
+            merge,
+          },
         },
       },
     },
